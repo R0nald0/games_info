@@ -24,7 +24,7 @@ class AppBarWidget extends StatelessWidget {
                                   height: context.parcentHeight(0.07),
                                   child: SearchBar(
                                     leading: Icon(Icons.search),
-                                    hintText: 'Find a game',
+                                    hintText: 'Find game',
                                     hintStyle: WidgetStatePropertyAll(
                                       context.theme.textTheme.bodySmall
                                     ),

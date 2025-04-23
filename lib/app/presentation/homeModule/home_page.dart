@@ -6,7 +6,7 @@ import 'package:play_games/app/core/utils/play_games_loader.dart';
 import 'package:play_games/app/presentation/homeModule/home_controller.dart';
 import 'package:play_games/app/presentation/homeModule/widgets/base_widgets/app_bar_widget.dart';
 import 'package:play_games/app/presentation/homeModule/widgets/base_widgets/menu_right.dart';
-import 'package:play_games/app/presentation/homeModule/widgets/base_widgets/with_discount_widget.dart';
+import 'package:play_games/app/presentation/homeModule/widgets/base_widgets/most_suggested_widget.dart';
 import 'package:play_games/app/presentation/homeModule/widgets/card_game_list_item.dart';
 import 'package:play_games/app/presentation/homeModule/widgets/card_slide_games.dart';
 
@@ -56,7 +56,7 @@ class _HomePageState extends BaseState<HomePage> {
                 child: Padding(
                   padding: const EdgeInsets.all(8),
                   child: Row(
-                    spacing: 10,
+                    spacing: 20,
                     children: [
                       MenuRight(
                           height: constraints.maxHeight * 0.9,
@@ -98,22 +98,7 @@ class _HomePageState extends BaseState<HomePage> {
                                   ),
                                 ),
                               ),
-                              SliverPadding(
-                                padding: EdgeInsets.all(16),
-                                sliver: SliverToBoxAdapter(
-                                  child: Row(
-                                    spacing: 5,
-                                    children: [
-                                      Text("Most suggested"),
-                                      Expanded(child: SizedBox.shrink()),
-                                      Text('See All'),
-                                      IconButtonArrowWidget(icon: Icons.arrow_back),
-                                      IconButtonArrowWidget(icon: Icons.arrow_forward)
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              WithDiscountWidget(),
+                              MostSuggestedWidget(),
                               SliverPadding(
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 6, vertical: 16),
@@ -131,34 +116,29 @@ class _HomePageState extends BaseState<HomePage> {
                                   ),
                                 ),
                               ),
-                              ListenableBuilder(
-                                listenable: widget._homeController,
-                                builder: (context, _) {
-                                  return SliverGrid(
-                                    gridDelegate:
-                                        SliverGridDelegateWithMaxCrossAxisExtent(
-                                       maxCrossAxisExtent: 180,
-                                      mainAxisExtent: 300,
-                                      childAspectRatio:4/2 ,
-                                      crossAxisSpacing: 20,
-                                      mainAxisSpacing: 76,
-                                       
-                                    ),
-                                    delegate: SliverChildBuilderDelegate(
-                                      childCount: widget._homeController.games.length,
-                                      (context, index) {
-                                        final game = widget._homeController.games[index];
-                                        
-                                        return CardGameListItem(
-                                            rating: game.rate,
-                                            sugestions: game.sugestions,
-                                            platforms: game.platforms?.map((p)=> context.getIconsPlatform(p.id ?? 0) ).take(4).toList() ?? <IconData>[],
-                                            title: game.title,
-                                            imageUrl: game.image);
-                                      },
-                                    ),
-                                  );
-                                },
+                              SliverGrid(
+                                gridDelegate:
+                                    SliverGridDelegateWithMaxCrossAxisExtent(
+                                   maxCrossAxisExtent: 180,
+                                  mainAxisExtent: 300,
+                                  childAspectRatio:4/2 ,
+                                  crossAxisSpacing: 20,
+                                  mainAxisSpacing: 76,
+                                   
+                                ),
+                                delegate: SliverChildBuilderDelegate(
+                                  childCount: widget._homeController.games.length,
+                                  (context, index) {
+                                    final game = widget._homeController.games[index];
+                                    
+                                    return CardGameListItem(
+                                        rating: game.rate,
+                                        sugestions: game.sugestions,
+                                        platforms: game.platforms?.map((p)=> context.getIconsPlatform(p.id ?? 0) ).take(4).toList() ?? <IconData>[],
+                                        title: game.title,
+                                        imageUrl: game.image);
+                                  },
+                                ),
                               )
                             ],
                           ),
@@ -176,32 +156,4 @@ class _HomePageState extends BaseState<HomePage> {
   }
 }
 
-class IconButtonArrowWidget extends StatelessWidget {
-  final  IconData icon;
-  const IconButtonArrowWidget({
-    super.key,
-    required this.icon
-  });
 
-  @override
-  Widget build(BuildContext context ,) {
-    return SizedBox(
-      height: 30,
-      width: 30,
-      child: IconButton.filled(
-          iconSize: 14,
-          style: ButtonStyle(
-            backgroundColor:
-                WidgetStatePropertyAll(context
-                    .theme
-                    .colorScheme
-                    .primaryContainer),
-            iconColor: WidgetStatePropertyAll(
-                context.theme.colorScheme
-                    .tertiary),
-          ),
-          onPressed: () {},
-          icon: Icon(icon)),
-    );
-  }
-}
