@@ -19,7 +19,7 @@ Projeto  desenvolvido com Flutter Web (Dart),listagem de jogos já lançados e �
 
 ### Como Rodar 
 <p>
- Pra rodar e testar, basta ter o Flutter instalado,clonar ou fazer um fork deste repositório e executar com:
+ Pra rodar e testar, basta ter o Flutter instalado,necéssario uma API key do RAWG, que você pode obeter neste link <a href="https://rawg.io/apidocs">RAWG</a> ,clonar ou fazer um fork deste repositório e executar com:
 </p>
 
 ```
